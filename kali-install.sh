@@ -11,6 +11,20 @@ apt update -y
 apt install -y docker-ce docker-compose
 systemctl start docker
 
+# Pulling a few containers
+docker pull tleemcjr/metasploitable2
+docker pull raesene/bwapp
+
+# Adding SDR packages
+apt install -y gcc-multilib
+apt install -y gqrx pkg-config librtlsdr-dev
+ln -sf /usr/lib/x86_64-linux-gnu/libvolk.so.1.3.1 /usr/lib/x86_64-linux-gnu/libvolk.so.1.3
+
+# Get dump1090 for decoding ADS-B and install
+git clone https://github.com/antirez/dump1090.git /opt/dump1090
+cd /opt/dump1090
+make 
+
 # Install sublime
 echo -e "Installing Sublime Text...\n"
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
@@ -20,22 +34,24 @@ apt install sublime-text
 
 # Install terminator
 apt install -y terminator
+
 # Install openvmtools
 apt install -y open-vm-tools-desktop
 
-# Install Empire
-cd /opt
-git clone https://github.com/EmpireProject/Empire.git
+# Download Empire
+git clone https://github.com/EmpireProject/Empire.git /opt/Empire
 
 # Turn off inteligent autohide on dash to dock
 gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed 'true'
 
-# Set blank screen in power saving to never and turn off auto suspend
+# Turn off auto suspend
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 0
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-timeout 0
+
+# Turn off blank screen in power settings
 gsettings set org.gnome.desktop-session idle-delay 3000
 
-# Set app favorites
+# Set app favorites for dock
 gsettings set org.gnome.shell favorite-apps "['firefox-esr.desktop', 'terminator.desktop', 'org.gnome.Terminal.Desktop', 'org.gnome.Nautilus.desktop', 'kali-burpsuite.desktop', 'leafpad.desktop', 'wireshark.desktop', 'sublime_text.desktop']"
 
 # Clean up
@@ -43,7 +59,6 @@ apt autoremove -y
 apt autoclean -y 
 
 # Done
-echo -e "Done!\n"
-sleep 10
+sleep 5
 echo "Time to reboot for all changes to take affect!\n"
 shutdown -r 0 
