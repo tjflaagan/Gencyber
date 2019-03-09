@@ -60,5 +60,5 @@ apt autoclean -y
 
 # Done
 sleep 5
-echo "Time to reboot for all changes to take affect!\n"
+echo -e "\n\n\nTime to reboot for all changes to take affect\n"
 shutdown -r 0 
