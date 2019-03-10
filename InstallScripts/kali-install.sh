@@ -12,7 +12,6 @@ apt upgrade -y
 apt update -y 
 
 # Install and run docker
-echo -e "Installing docker...\n"
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
 echo 'deb https://download.docker.com/linux/debian stretch stable' > /etc/apt/sources.list.d/docker.list
 apt update -y
@@ -34,7 +33,6 @@ cd /opt/dump1090
 make 
 
 # Install sublime
-echo -e "Installing Sublime Text...\n"
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
 echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
 apt update -y 
@@ -45,11 +43,11 @@ apt install -y terminator
 
 # Set a few terminator preferences
 install -D /dev/null ~/.config/terminator/config
-echo -e "[global_config]\n  inactive_color_offset = 1.0\n[keybindings]\n[profiles]\n  [[default]]\n    cursor_color = \"#aaaaaa\"\n    foreground_color = \"#ffffff\"\n    scrollback_lines = 2500\n[layouts]\n  [[default]]\n    [[[child1]]]\n      parent = window0\n      type = Terminal\n    [[[window0]]]\n      parent = \"\"\n      type = Window\n[plugins]" > ~/.config/terminator/config
+echo "[global_config]\n  inactive_color_offset = 1.0\n[keybindings]\n[profiles]\n  [[default]]\n    cursor_color = \"#aaaaaa\"\n    foreground_color = \"#ffffff\"\n    scrollback_lines = 2500\n[layouts]\n  [[default]]\n    [[[child1]]]\n      parent = window0\n      type = Terminal\n    [[[window0]]]\n      parent = \"\"\n      type = Window\n[plugins]" > ~/.config/terminator/config
 
 # Install GDB PEDA 
-git clone https://github.com/longld/peda.git ~/peda
-echo "source ~/peda/peda.py" >> ~/.gdbinit
+git clone https://github.com/longld/peda.git ~/.peda
+echo "source ~/.peda/peda.py" >> ~/.gdbinit
 
 # Installing python pwntools
 pip install pwntools
@@ -75,5 +73,4 @@ apt autoclean -y
 
 # Done
 sleep 5
-echo -e "\n\n\nTime to reboot for all changes to take affect\n"
 shutdown -r 0 
