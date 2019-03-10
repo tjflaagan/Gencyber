@@ -1,6 +1,6 @@
 #!/bin/sh
 
-apt full-upgrade -y 
+apt upgrade -y 
 apt update -y 
 
 # Install and run docker
@@ -34,6 +34,10 @@ apt install sublime-text
 
 # Install terminator
 apt install -y terminator
+
+# Set a few terminator preferences
+install -D /dev/null ~/.config/terminator/config
+echo -e "[global_config]\n  inactive_color_offset = 1.0\n[keybindings]\n[profiles]\n  [[default]]\n    cursor_color = \"#aaaaaa\"\n    foreground_color = \"#ffffff\"\n    scrollback_lines = 2500\n[layouts]\n  [[default]]\n    [[[child1]]]\n      parent = window0\n      type = Terminal\n    [[[window0]]]\n      parent = \"\"\n      type = Window\n[plugins]" > ~/.config/terminator/config
 
 # Install openvmtools
 apt install -y open-vm-tools-desktop
