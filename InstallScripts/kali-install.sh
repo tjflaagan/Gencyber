@@ -5,7 +5,9 @@ gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-timeout 0
 
 # Turn off blank screen in power settings
-gsettings set org.gnome.desktop-session idle-delay 3000
+gsettings set org.gnome.desktop.session idle-delay 3000
+
+# This upgrade will need user input to complete
 apt upgrade -y 
 apt update -y 
 
