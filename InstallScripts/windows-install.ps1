@@ -29,7 +29,7 @@ choco install putty -fy
 choco install wireshark -fy
 choco install iperf3 -fy
 choco install ida-free -fy
-choco install frhed
+choco install frhed -fy
 
 # Install flash for Ialab ??
 choco install flashplayerplugin -fy

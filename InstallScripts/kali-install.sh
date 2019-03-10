@@ -39,6 +39,10 @@ apt install -y terminator
 install -D /dev/null ~/.config/terminator/config
 echo -e "[global_config]\n  inactive_color_offset = 1.0\n[keybindings]\n[profiles]\n  [[default]]\n    cursor_color = \"#aaaaaa\"\n    foreground_color = \"#ffffff\"\n    scrollback_lines = 2500\n[layouts]\n  [[default]]\n    [[[child1]]]\n      parent = window0\n      type = Terminal\n    [[[window0]]]\n      parent = \"\"\n      type = Window\n[plugins]" > ~/.config/terminator/config
 
+# Install GDB PEDA 
+git clone https://github.com/longld/peda.git ~/peda
+echo "source ~/peda/peda.py" >> ~/.gdbinit
+
 # Install openvmtools
 apt install -y open-vm-tools-desktop
 
@@ -57,6 +61,9 @@ gsettings set org.gnome.desktop-session idle-delay 3000
 
 # Set app favorites for dock
 gsettings set org.gnome.shell favorite-apps "['firefox-esr.desktop', 'terminator.desktop', 'org.gnome.Terminal.Desktop', 'org.gnome.Nautilus.desktop', 'kali-burpsuite.desktop', 'leafpad.desktop', 'wireshark.desktop', 'sublime_text.desktop']"
+
+# Get rid of unused directories
+rmdir ~/Music ~/Public ~/Pictures ~/Videos ~/Templates
 
 # Clean up
 apt autoremove -y 
