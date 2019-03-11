@@ -15,6 +15,9 @@ choco install arduino -fy
 # Msoft Visual C++ Redis
 choco install vcredist140 -fy
 
+# Office
+choco install office365proplus
+
 # VMware
 choco install vmware-workstation-player -fy
 
