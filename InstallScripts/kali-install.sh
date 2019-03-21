@@ -8,6 +8,7 @@ gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-tim
 gsettings set org.gnome.desktop.session idle-delay 0
 
 # This upgrade will need user input to complete
+export DEBIAN_FRONTEND=noninteractive
 apt upgrade -y 
 apt update -y 
 
@@ -16,6 +17,7 @@ curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
 echo 'deb https://download.docker.com/linux/debian stretch stable' > /etc/apt/sources.list.d/docker.list
 apt update -y
 apt install -y docker-ce docker-compose
+systemctl enable docker
 systemctl start docker
 
 # Pulling a few containers
@@ -24,8 +26,18 @@ docker pull raesene/bwapp
 
 # Adding SDR packages
 apt install -y gcc-multilib
-apt install -y gqrx pkg-config librtlsdr-dev
+apt install -y gqrx pkg-config #librtlsdr-dev
 ln -sf /usr/lib/x86_64-linux-gnu/libvolk.so.1.3.1 /usr/lib/x86_64-linux-gnu/libvolk.so.1.3
+
+# librtlsdr from source to get proper config for dump1090
+apt install -y cmake libusb-1.0-0-dev
+git clone git://git.osmocom.org/rtl-sdr.git /opt/rtl-sdr
+cd /opt/rtl-sdr
+mkdir build
+cd build
+cmake ..
+make
+make install
 
 # Get dump1090 for decoding ADS-B and install
 git clone https://github.com/antirez/dump1090.git /opt/dump1090
@@ -64,12 +76,17 @@ gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed 'true'
 # Set app favorites for dock
 gsettings set org.gnome.shell favorite-apps "['firefox-esr.desktop', 'terminator.desktop', 'org.gnome.Terminal.Desktop', 'org.gnome.Nautilus.desktop', 'kali-burpsuite.desktop', 'leafpad.desktop', 'wireshark.desktop', 'sublime_text.desktop']"
 
+# Fix ssh on VM
+echo "Host *" > ~/.ssh/config
+echo "	IPQoS lowdelay throughput" >> ~/.ssh/config
+
 # Get rid of unused directories
 rmdir ~/Music ~/Public ~/Pictures ~/Videos ~/Templates
 
 # Clean up
 apt autoremove -y 
 apt autoclean -y 
+history -c && rm ~/.bash_history
 
 # Done
 sleep 5
