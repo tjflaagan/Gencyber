@@ -8,6 +8,7 @@ gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-tim
 gsettings set org.gnome.desktop.session idle-delay 0
 
 # This upgrade will need user input to complete
+export DEBIAN_FRONTEND=noninteractive
 apt upgrade -y 
 apt update -y 
 
@@ -16,6 +17,7 @@ curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
 echo 'deb https://download.docker.com/linux/debian stretch stable' > /etc/apt/sources.list.d/docker.list
 apt update -y
 apt install -y docker-ce docker-compose
+systemctl enable docker
 systemctl start docker
 
 # Pulling a few containers
