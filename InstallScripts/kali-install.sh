@@ -72,6 +72,7 @@ rmdir ~/Music ~/Public ~/Pictures ~/Videos ~/Templates
 # Clean up
 apt autoremove -y 
 apt autoclean -y 
+history -c && rm ~/.bash_history
 
 # Done
 sleep 5
