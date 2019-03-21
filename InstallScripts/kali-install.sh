@@ -26,8 +26,18 @@ docker pull raesene/bwapp
 
 # Adding SDR packages
 apt install -y gcc-multilib
-apt install -y gqrx pkg-config librtlsdr-dev
+apt install -y gqrx pkg-config #librtlsdr-dev
 ln -sf /usr/lib/x86_64-linux-gnu/libvolk.so.1.3.1 /usr/lib/x86_64-linux-gnu/libvolk.so.1.3
+
+# librtlsdr from source to get proper config for dump1090
+apt install -y cmake
+git clone git://git.osmocom.org/rtl-sdr.git /opt/rtl-sdr
+cd /opt/rtl-sdr
+mkdir build
+cd build
+cmake ..
+make
+make install
 
 # Get dump1090 for decoding ADS-B and install
 git clone https://github.com/antirez/dump1090.git /opt/dump1090
