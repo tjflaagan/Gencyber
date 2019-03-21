@@ -66,6 +66,10 @@ gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed 'true'
 # Set app favorites for dock
 gsettings set org.gnome.shell favorite-apps "['firefox-esr.desktop', 'terminator.desktop', 'org.gnome.Terminal.Desktop', 'org.gnome.Nautilus.desktop', 'kali-burpsuite.desktop', 'leafpad.desktop', 'wireshark.desktop', 'sublime_text.desktop']"
 
+# Fix ssh on VM
+echo "Host *" > ~/.ssh/config
+echo "	IPQoS lowdelay throughput" >> ~/.ssh/config
+
 # Get rid of unused directories
 rmdir ~/Music ~/Public ~/Pictures ~/Videos ~/Templates
 
