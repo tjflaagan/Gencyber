@@ -64,6 +64,9 @@ echo "source ~/.peda/peda.py" >> ~/.gdbinit
 # Installing python pwntools
 pip install pwntools
 
+# Install autossh
+apt install autossh
+
 # Install openvmtools
 apt install -y open-vm-tools-desktop
 
