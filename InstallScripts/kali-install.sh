@@ -73,6 +73,9 @@ apt install -y open-vm-tools-desktop
 # Download Empire
 git clone https://github.com/EmpireProject/Empire.git /opt/Empire
 
+# Install cme
+apt install -y crackmapexec
+
 # Turn off inteligent autohide on dash to dock
 gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed 'true'
 
