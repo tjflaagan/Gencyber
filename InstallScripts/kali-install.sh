@@ -76,6 +76,11 @@ git clone https://github.com/EmpireProject/Empire.git /opt/Empire
 # Install cme
 apt install -y crackmapexec
 
+# Install impacket
+apt install -y jq
+curl -s "https://api.github.com/repos/SecureAuthCorp/impacket/releases/latest" | jq -r '.assets[0].browser_download_url' | wget -qi - -O /opt/impacket.tar.gz
+tar -xvf /opt/impacket.tar.gz -C /opt
+
 # Turn off inteligent autohide on dash to dock
 gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed 'true'
 
