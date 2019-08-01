@@ -87,6 +87,10 @@ gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed 'true'
 # Set app favorites for dock
 gsettings set org.gnome.shell favorite-apps "['firefox-esr.desktop', 'terminator.desktop', 'org.gnome.Terminal.Desktop', 'org.gnome.Nautilus.desktop', 'kali-burpsuite.desktop', 'leafpad.desktop', 'wireshark.desktop', 'sublime_text.desktop']"
 
+# Turn off Firefox captive portal detection by default
+x=$(grep "Path" ~/.mozilla/firefox/profiles.ini | cut -d "=" -f2)
+echo "user_pref(\"network.captive-portal-service.enabled\", false);" >> "$HOME/.mozilla/firefox/$x/user.js"
+
 # Fix ssh on VM
 echo "Host *" > ~/.ssh/config
 echo "	IPQoS lowdelay throughput" >> ~/.ssh/config
