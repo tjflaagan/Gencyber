@@ -95,6 +95,9 @@ echo "user_pref(\"network.captive-portal-service.enabled\", false);" >> "$HOME/.
 echo "Host *" > ~/.ssh/config
 echo "	IPQoS lowdelay throughput" >> ~/.ssh/config
 
+# Unzip rockyou
+gunzip /usr/share/wordlists/rockyou.txt.gz
+
 # Get rid of unused directories
 rmdir ~/Music ~/Public ~/Pictures ~/Videos ~/Templates
 
