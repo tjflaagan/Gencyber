@@ -6,11 +6,17 @@ gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-tim
 
 # Turn off blank screen in power settings
 gsettings set org.gnome.desktop.session idle-delay 0
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
 
 # This upgrade will need user input to complete
 export DEBIAN_FRONTEND=noninteractive
 apt upgrade -y 
 apt update -y 
+
+# Disable terminal transparency
+profile=$(gsettings get org.gnome.Terminal.ProfilesList default)
+profile=${profile:1:-1}
+gsettings set "org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$profile/" use-transparent-background false
 
 # Install and run docker
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
@@ -70,11 +76,29 @@ apt install autossh
 # Install openvmtools
 apt install -y open-vm-tools-desktop
 
-# Download Empire
-git clone https://github.com/EmpireProject/Empire.git /opt/Empire
+# Install Bettercap
+apt -y install libnetfilter-queue-dev libpcap-dev libusb-1.0-0-dev
+apt install -y bettercap 
 
 # Install cme
 apt install -y crackmapexec
+
+# Install boostnote
+boost_deb_url="https://github.com$(curl -Ls https://github.com/BoostIO/boost-releases/releases/latest | egrep -o '/BoostIO/boost-releases/releases/download/.+.deb')"
+cd ~/Downloads
+wget -O boostnote.deb "$boost_deb_url"
+apt-get -y install gconf2 gvfs-bin
+dpkg -i boostnote.deb
+rm boostnote.deb
+
+# Init msfdb
+systemctl start postgresql
+systemctl enable postgresql
+msfdb init
+
+# Installing pip
+python2 -m pip install pipenv
+python3 -m pip install pipenv
 
 # Install impacket
 apt install -y jq
