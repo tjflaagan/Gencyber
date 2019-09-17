@@ -10,7 +10,7 @@ gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'no
 
 # Update
 apt upgrade -y 
-apt update -y 
+apt update -y --fix-missing
 
 # Install sublime
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
@@ -30,14 +30,13 @@ systemctl start docker
 apt install -y terminator
 
 # Install utils
-apt update -y --fix-missing
-apt install socat
-apt install openssh-server
-apt install autossh
-apt install apache2
-apt install nginx
-apt install net-tools
-apt install vim
+apt install -y socat
+apt install -y openssh-server
+apt install -y autossh
+apt install -y apache2
+apt install -y nginx
+apt install -y net-tools
+apt install -y vim
 
 # Disable services
 systemctl disable nginx
@@ -46,7 +45,6 @@ systemctl disable apache2
 # Clean up
 apt autoremove -y 
 apt autoclean -y 
-history -c && rm ~/.bash_history
 
 # Done
 sleep 5
