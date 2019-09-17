@@ -18,14 +18,6 @@ echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sou
 apt update -y 
 apt install sublime-text
 
-# Install and run docker
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
-echo 'deb https://download.docker.com/linux/debian stretch stable' > /etc/apt/sources.list.d/docker.list
-apt update -y
-apt install -y docker-ce docker-compose
-systemctl enable docker
-systemctl start docker
-
 # Install terminator
 apt install -y terminator
 
