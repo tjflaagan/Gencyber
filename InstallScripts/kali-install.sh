@@ -15,7 +15,6 @@ apt update -y
 
 # Disable terminal transparency
 profile=$(gsettings get org.gnome.Terminal.ProfilesList default)
-profile=${profile:1:-1}
 gsettings set "org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$profile/" use-transparent-background false
 
 # Install and run docker
