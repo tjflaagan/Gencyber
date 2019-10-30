@@ -29,6 +29,7 @@ apt install -y apache2
 apt install -y nginx
 apt install -y net-tools
 apt install -y vim
+apt install -y open-vm-tools-desktop
 
 # Disable services
 systemctl disable nginx
