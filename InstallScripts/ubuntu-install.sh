@@ -30,6 +30,10 @@ apt install -y nginx
 apt install -y net-tools
 apt install -y vim
 apt install -y open-vm-tools-desktop
+apt install -y python-pip 
+
+# Installing ansible
+sudo apt install -y ansible
 
 # Disable services
 systemctl disable nginx
@@ -38,6 +42,9 @@ systemctl disable apache2
 # Clean up
 apt autoremove -y 
 apt autoclean -y 
+
+# Get rid of unused directories
+rmdir ~/Music ~/Public ~/Pictures ~/Videos ~/Templates
 
 # Done
 sleep 5
