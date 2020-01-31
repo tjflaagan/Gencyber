@@ -34,9 +34,14 @@ apt install -y python-pip
 apt install -y git
 apt install -y curl
 
-# Installing docker-compose (Update version number) 
-sudo curl -L "https://github.com/docker/compose/releases/download/1.25.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
+# Install docker
+apt install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs)  stable" 
+apt update -y
+apt install -y docker-ce docker-compose
+systemctl enable docker
+systemctl start docker
 
 # Installing ansible
 sudo apt install -y ansible
