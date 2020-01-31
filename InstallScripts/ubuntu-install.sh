@@ -31,6 +31,12 @@ apt install -y net-tools
 apt install -y vim
 apt install -y open-vm-tools-desktop
 apt install -y python-pip 
+apt install -y git
+apt install -y curl
+
+# Installing docker-compose (Update version number) 
+sudo curl -L "https://github.com/docker/compose/releases/download/1.25.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
 
 # Installing ansible
 sudo apt install -y ansible
