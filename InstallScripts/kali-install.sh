@@ -1,21 +1,14 @@
 #!/bin/sh
 
-# Turn off auto suspend
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 0
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-timeout 0
-
-# Turn off blank screen in power settings
-gsettings set org.gnome.desktop.session idle-delay 0
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
+if [[ $EUID -ne 0 ]]; then
+        echo "This script must be run as root or with sudo"
+        exit 1
+fi
 
 # This upgrade will need user input to complete
 export DEBIAN_FRONTEND=noninteractive
 apt upgrade -y 
 apt update -y 
-
-# Disable terminal transparency
-profile=$(gsettings get org.gnome.Terminal.ProfilesList default)
-gsettings set "org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$profile/" use-transparent-background false
 
 # Install and run docker
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
@@ -54,6 +47,10 @@ wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add
 echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
 apt update -y 
 apt install sublime-text
+
+# Install Atom
+wget -O /tmp/atom-amd64.deb https://github.com/atom/atom/releases/download/v1.49.0/atom-amd64.deb                                                                                                                                          
+dpkg -i /tmp/atom-amd64.deb    
 
 # Install terminator
 apt install -y terminator
@@ -110,11 +107,29 @@ apt install -y jq
 curl -s "https://api.github.com/repos/SecureAuthCorp/impacket/releases/latest" | jq -r '.assets[0].browser_download_url' | wget -qi - -O /opt/impacket.tar.gz
 tar -xvf /opt/impacket.tar.gz -C /opt
 
-# Turn off inteligent autohide on dash to dock
-gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed 'true'
+if [ `echo $DESKTOP_SESSION` -eq "gnome" ]
+then
+    # Turn off auto suspend
+    gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 0
+    gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-timeout 0
 
-# Set app favorites for dock
-gsettings set org.gnome.shell favorite-apps "['firefox-esr.desktop', 'terminator.desktop', 'org.gnome.Terminal.Desktop', 'org.gnome.Nautilus.desktop', 'kali-burpsuite.desktop', 'leafpad.desktop', 'wireshark.desktop', 'sublime_text.desktop']"
+    # Turn off blank screen in power settings
+    gsettings set org.gnome.desktop.session idle-delay 0
+    gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
+
+    # Disable terminal transparency
+    profile=$(gsettings get org.gnome.Terminal.ProfilesList default)
+    gsettings set "org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$profile/" use-transparent-background false
+
+    # Turn off inteligent autohide on dash to dock
+    gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed 'true'
+
+    # Set app favorites for dock
+    gsettings set org.gnome.shell favorite-apps "['firefox-esr.desktop', 'terminator.desktop', 'org.gnome.Terminal.Desktop', 'org.gnome.Nautilus.desktop', 'kali-burpsuite.desktop', 'leafpad.desktop', 'wireshark.desktop', 'sublime_text.desktop']"
+elif [ `echo $DESKTOP_SESSION` -eq "lightdm-xsession" ] 
+then
+    echo "Newer version" 
+fi
 
 # Turn off Firefox captive portal detection by default
 x=$(grep "Path" ~/.mozilla/firefox/profiles.ini | cut -d "=" -f2)
@@ -129,6 +144,12 @@ gunzip /usr/share/wordlists/rockyou.txt.gz
 
 # Get rid of unused directories
 rmdir ~/Music ~/Public ~/Pictures ~/Videos ~/Templates
+
+if [[ -z $SUDO_USER ]]; then
+        echo "Script not ran with sudo. You may need to add your user to docker group manually"
+else
+        usermod -aG docker $SUDO_USER
+fi
 
 # Clean up
 apt autoremove -y 
