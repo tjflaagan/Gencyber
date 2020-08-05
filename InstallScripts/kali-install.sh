@@ -107,7 +107,7 @@ apt install -y jq
 curl -s "https://api.github.com/repos/SecureAuthCorp/impacket/releases/latest" | jq -r '.assets[0].browser_download_url' | wget -qi - -O /opt/impacket.tar.gz
 tar -xvf /opt/impacket.tar.gz -C /opt
 
-if [ `echo $DESKTOP_SESSION` -eq "gnome" ]
+if [ `echo $DESKTOP_SESSION` == "gnome" ]
 then
     # Turn off auto suspend
     gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 0
@@ -126,7 +126,7 @@ then
 
     # Set app favorites for dock
     gsettings set org.gnome.shell favorite-apps "['firefox-esr.desktop', 'terminator.desktop', 'org.gnome.Terminal.Desktop', 'org.gnome.Nautilus.desktop', 'kali-burpsuite.desktop', 'leafpad.desktop', 'wireshark.desktop', 'sublime_text.desktop']"
-elif [ `echo $DESKTOP_SESSION` -eq "lightdm-xsession" ] 
+elif [ `echo $DESKTOP_SESSION` == "lightdm-xsession" ] 
 then
     echo "Newer version" 
 fi
