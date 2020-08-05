@@ -128,7 +128,12 @@ then
     gsettings set org.gnome.shell favorite-apps "['firefox-esr.desktop', 'terminator.desktop', 'org.gnome.Terminal.Desktop', 'org.gnome.Nautilus.desktop', 'kali-burpsuite.desktop', 'leafpad.desktop', 'wireshark.desktop', 'sublime_text.desktop']"
 elif [ `echo $DESKTOP_SESSION` == "lightdm-xsession" ] 
 then
-    echo "Newer version" 
+    xset -dpms
+    xset s off
+    # Turn off auto suspend
+    # Turn off blank screen in power settings
+    # Disable terminal transparency
+    # Set app favorites for launcher
 fi
 
 # Turn off Firefox captive portal detection by default
