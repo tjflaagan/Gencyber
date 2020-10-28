@@ -13,7 +13,8 @@ apt update -y
 # Install and run docker
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
 echo 'deb https://download.docker.com/linux/debian stretch stable' > /etc/apt/sources.list.d/docker.list
-apt update -y
+apt update -y --fix-missing
+apt install -y jq
 apt install -y docker-ce docker-compose
 systemctl enable docker
 systemctl start docker
@@ -65,15 +66,19 @@ git clone https://github.com/lgandx/Responder.git /opt/responder
 install -D /dev/null ~/.config/terminator/config
 printf "[global_config]\n  inactive_color_offset = 1.0\n[keybindings]\n[profiles]\n  [[default]]\n    cursor_color = \"#aaaaaa\"\n    foreground_color = \"#ffffff\"\n    scrollback_lines = 4000\n[layouts]\n  [[default]]\n    [[[child1]]]\n      parent = window0\n      type = Terminal\n    [[[window0]]]\n      parent = \"\"\n      type = Window\n[plugins]" > ~/.config/terminator/config
 
-# Install GDB PEDA 
-git clone https://github.com/longld/peda.git ~/.peda
-echo "source ~/.peda/peda.py" >> ~/.gdbinit
+# Install GDB GEF 
+wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh | sh
 
 # Installing python pwntools
 pip install pwntools
 
 # Install autossh
-apt install autossh
+apt install -y autossh
+
+# Install ffuff
+cd /opt
+curl -sL https://api.github.com/repos/ffuf/ffuf/releases/latest | jq -r '.assets[].browser_download_url' | grep linux_amd64 | xargs -I{} sh -c 'wget -q -O - {} | tar zxf -'
+cd
 
 # Install openvmtools
 apt install -y open-vm-tools-desktop
@@ -103,7 +108,6 @@ python2 -m pip install pipenv
 python3 -m pip install pipenv
 
 # Install impacket
-apt install -y jq
 curl -s "https://api.github.com/repos/SecureAuthCorp/impacket/releases/latest" | jq -r '.assets[0].browser_download_url' | wget -qi - -O /opt/impacket.tar.gz
 tar -xvf /opt/impacket.tar.gz -C /opt
 
