@@ -3,7 +3,7 @@
 
 Both should be run with administrative privs
 
-`curl -fsSL http://kali.eh200.xyz | bash`
+`curl -fsSL http://kali.eh200.xyz | zsh`
 
 `curl -fsSL http://ubuntu.eh200.xyz | bash`
 
