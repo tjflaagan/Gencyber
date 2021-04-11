@@ -9,9 +9,9 @@ fi
 
 DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold'
 # Update and upgrade system
-apt update -y 
-apt update -y --fix-missing
-apt upgrade -y 
+apt -qq update -y 
+apt -qq update -y --fix-missing
+apt -qq upgrade -y 
 
 # Install and run docker
 apt install -y docker-io
