@@ -6,8 +6,8 @@ if [[ $EUID -ne 0 ]]; then
         exit 1
 fi
 
-export DEBIAN_FRONTEND=noninteractive
 
+DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold'
 # Update and upgrade system
 apt update -y 
 apt update -y --fix-missing
