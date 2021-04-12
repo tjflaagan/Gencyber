@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/zsh
 
 # Check perms
 if [[ $EUID -ne 0 ]]; then
@@ -7,7 +7,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 
-DEBIAN_FRONTEND='noninteractive' apt-get -y -o Dpkg::Options::='--force-confdef' -o Dpkg::Options::='--force-confold'
+export DEBIAN_FRONTEND=noninteractive
 # Update and upgrade system
 apt -qq update -y 
 apt -qq update -y --fix-missing
@@ -58,6 +58,11 @@ echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sou
 apt update -y 
 apt install -y sublime-text
 
+# Install atom
+wget -O /tmp/atom-amd64.deb https://github.com/atom/atom/releases/download/v1.49.0/atom-amd64.deb
+dpkg -i /tmp/atom-amd64.deb
+rm -f /tmp/atom-amd64.deb
+
 # Install terminator
 apt install -y terminator
 
@@ -93,7 +98,7 @@ pip install -y pwntools
 apt install -y open-vm-tools-desktop
 
 # Install Bettercap
-apt -y install libnetfilter-queue-dev libpcap-dev libusb-1.0-0-dev
+apt install -y libnetfilter-queue-dev libpcap-dev libusb-1.0-0-dev
 apt install -y bettercap 
 
 # Install impacket
@@ -108,6 +113,9 @@ echo "  IPQoS lowdelay throughput" >> ~/.ssh/config
 # Unzip rockyou
 gunzip /usr/share/wordlists/rockyou.txt.gz
 
+# Set vi line numbers
+echo "set number" >> /etc/vim/vimrc
+
 # Get rid of unused directories
 rmdir ~/Music ~/Public ~/Pictures ~/Videos ~/Templates
 
@@ -117,5 +125,5 @@ apt autoclean -y
 rm -f ~/.zsh_history
 
 # Done
-sleep 5
-shutdown -r 0 
+sleep 3
+shutdown -r now
