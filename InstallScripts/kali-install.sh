@@ -81,10 +81,6 @@ git clone https://github.com/lgandx/Responder.git /opt/responder
 # Install enum4linux-ng
 git clone https://github.com/cddmp/enum4linux-ng.git /opt/enum4linux-ng
 
-# Set a few terminator preferences (only for the root account)
-install -D /dev/null ~/.config/terminator/config
-printf "[global_config]\n  inactive_color_offset = 1.0\n[keybindings]\n[profiles]\n  [[default]]\n    cursor_color = \"#aaaaaa\"\n    foreground_color = \"#ffffff\"\n    scrollback_lines = 4000\n[layouts]\n  [[default]]\n    [[[child1]]]\n      parent = window0\n      type = Terminal\n    [[[window0]]]\n      parent = \"\"\n      type = Window\n[plugins]" > ~/.config/terminator/config
-
 # Install GDB GEF 
 wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh | sh
 
@@ -117,8 +113,12 @@ fi
 cf_path=$cf_home"/course_files"
 
 # Fix ssh on VM
-echo "Host *" > ~/.ssh/config
-echo "  IPQoS lowdelay throughput" >> ~/.ssh/config
+echo "Host *" > $cf_home/.ssh/config
+echo "  IPQoS lowdelay throughput" >> $cf_home/.ssh/config
+
+# Set a few terminator preferences 
+install -D /dev/null $cf_home/.config/terminator/config
+printf "[global_config]\n  inactive_color_offset = 1.0\n[keybindings]\n[profiles]\n  [[default]]\n    cursor_color = \"#aaaaaa\"\n    foreground_color = \"#ffffff\"\n    scrollback_lines = 4000\n[layouts]\n  [[default]]\n    [[[child1]]]\n      parent = window0\n      type = Terminal\n    [[[window0]]]\n      parent = \"\"\n      type = Window\n[plugins]" > $cf_home/.config/terminator/config
 
 # Unzip rockyou
 gunzip /usr/share/wordlists/rockyou.txt.gz
