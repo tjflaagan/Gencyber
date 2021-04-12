@@ -28,6 +28,7 @@ fi
 # Pulling a few containers
 docker pull tleemcjr/metasploitable2
 docker pull raesene/bwapp
+docker pull bkimminich/juice-shop
 docker pull byt3bl33d3r/crackmapexec
 
 # Adding SDR packages
