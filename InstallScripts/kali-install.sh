@@ -106,6 +106,16 @@ git clone https://github.com/SecureAuthCorp/impacket.git /opt/impacket
 pip3 install -r /opt/impacket/requirements.txt
 python3 ./setup.py install
 
+# Check if we're sudo or root
+if [[ -z $SUDO_USER ]]; then
+  cf_home="~"
+  cf_user="root"
+else
+  cf_home=$(getent passwd $SUDO_USER | cut -d: -f6)
+  cf_user=$SUDO_USER
+fi
+cf_path=$cf_home"/course_files"
+
 # Fix ssh on VM
 echo "Host *" > ~/.ssh/config
 echo "  IPQoS lowdelay throughput" >> ~/.ssh/config
@@ -116,8 +126,16 @@ gunzip /usr/share/wordlists/rockyou.txt.gz
 # Set vi line numbers
 echo "set number" >> /etc/vim/vimrc
 
-# Get rid of unused directories
-rmdir ~/Music ~/Public ~/Pictures ~/Videos ~/Templates
+# Run ff
+firefox
+# Disable firefox captive portal detect and password history - set homepage
+# This only works if firefox has already ran
+ff_profiles=$(grep "Path" $cf_home/.mozilla/firefox/profiles.ini | cut -d "=" -f2)
+for ff_profile in $ff_profiles; do
+    echo "user_pref(\"network.captive-portal-service.enabled\", false);" >> "$cf_home/.mozilla/firefox/$ff_profile/user.js"
+    echo "user_pref(\"signon.rememberSignons\", false);" >> "$cf_home/.mozilla/firefox/$ff_profile/user.js"
+    echo "user_pref(\"browser.startup.homepage\", \"localhost:8000\");" >> "$cf_home/.mozilla/firefox/$ff_profile/user.js"
+done
 
 # Clean up
 apt autoremove -y 
