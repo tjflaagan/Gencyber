@@ -12,6 +12,8 @@ export DEBIAN_FRONTEND=noninteractive
 apt -qq update -y 
 apt -qq update -y --fix-missing
 apt -qq upgrade -y 
+apt -qq --fix-broken install
+
 
 # Install and run docker
 apt install -y docker-io
