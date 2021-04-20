@@ -103,7 +103,8 @@ pip3 install -r /opt/impacket/requirements.txt
 python3 ./setup.py install
 
 #Install Ghidra
-apt update --fix-missing -y
+apt --fix-broken install
+apt update --fix-missing -y -qq
 apt install -y openjdk-11-jdk
 cd /opt
 git clone https://github.com/bkerler/ghidra_installer
