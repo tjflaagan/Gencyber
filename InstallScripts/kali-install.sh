@@ -102,6 +102,14 @@ git clone https://github.com/SecureAuthCorp/impacket.git /opt/impacket
 pip3 install -r /opt/impacket/requirements.txt
 python3 ./setup.py install
 
+#Install Ghidra
+apt update --fix-missing -y
+apt install -y openjdk-11-jdk
+cd /opt
+git clone https://github.com/bkerler/ghidra_installer
+cd ghidra_installer
+./install-ghidra.sh
+
 # Check if we're sudo or root
 if [[ -z $SUDO_USER ]]; then
   cf_home="~"
