@@ -16,7 +16,7 @@ apt -qq --fix-broken install
 
 
 # Install and run docker
-apt install -y docker-io
+apt install -y docker.io
 apt install -y docker-compose
 systemctl enable docker
 systemctl start docker
