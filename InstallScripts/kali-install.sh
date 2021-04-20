@@ -28,10 +28,10 @@ else
 fi
 
 # Pulling a few containers
-docker pull tleemcjr/metasploitable2
-docker pull raesene/bwapp
-docker pull bkimminich/juice-shop
-docker pull byt3bl33d3r/crackmapexec
+docker pull -q tleemcjr/metasploitable2
+docker pull -q raesene/bwapp
+docker pull -q bkimminich/juice-shop
+docker pull -q byt3bl33d3r/crackmapexec
 
 # Adding SDR packages
 apt install -y gcc-multilib
