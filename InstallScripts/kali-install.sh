@@ -34,13 +34,13 @@ docker pull -q bkimminich/juice-shop
 docker pull -q byt3bl33d3r/crackmapexec
 
 # Adding SDR packages
-apt install -y gcc-multilib
-apt install -y gqrx-sdr
-apt install -y pkg-config
+apt -qq install -y gcc-multilib
+apt -qq install -y gqrx-sdr
+apt -qq install -y pkg-config
 ln -sf /usr/lib/x86_64-linux-gnu/libvolk.so.1.3.1 /usr/lib/x86_64-linux-gnu/libvolk.so.1.3
 
 # librtlsdr from source to get proper config for dump1090
-apt install -y cmake libusb-1.0-0-dev
+apt -qq install -y cmake libusb-1.0-0-dev
 git clone git://git.osmocom.org/rtl-sdr.git /opt/rtl-sdr
 cd /opt/rtl-sdr
 mkdir build
@@ -66,16 +66,16 @@ dpkg -i /tmp/atom-amd64.deb
 rm -f /tmp/atom-amd64.deb
 
 # Install terminator
-apt install -y terminator
+apt -qq install -y terminator
 
 # Install ffuf
-apt install -y ffuf
+apt -qq install -y ffuf
 
 # Install jq 
-apt install -y jq
+apt -qq install -y jq
 
 # Install autossh
-apt install -y autossh
+apt -qq install -y autossh
 
 # Install responder
 git clone https://github.com/lgandx/Responder.git /opt/responder
@@ -87,17 +87,17 @@ git clone https://github.com/cddmp/enum4linux-ng.git /opt/enum4linux-ng
 wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh | sh
 
 # Installing pip (python3 only)
-sudo apt install -y python3-pip
+apt -qq install -y python3-pip
 
 # Installing python pwntools
 pip install -y pwntools
 
 # Install openvmtools
-apt install -y open-vm-tools-desktop
+apt -qq install -y open-vm-tools-desktop
 
 # Install Bettercap
-apt install -y libnetfilter-queue-dev libpcap-dev libusb-1.0-0-dev
-apt install -y bettercap 
+apt -qq install -y libnetfilter-queue-dev libpcap-dev libusb-1.0-0-dev
+apt -qq install -y bettercap 
 
 # Install impacket
 git clone https://github.com/SecureAuthCorp/impacket.git /opt/impacket
@@ -105,9 +105,9 @@ pip3 install -r /opt/impacket/requirements.txt
 python3 ./setup.py install
 
 #Install Ghidra
-apt --fix-broken install
-apt update --fix-missing -y -qq
-apt install -y openjdk-11-jdk
+apt -qq --fix-broken install
+apt -qq update --fix-missing -y -qq
+apt -qq install -y openjdk-11-jdk
 cd /opt
 git clone https://github.com/bkerler/ghidra_installer
 cd ghidra_installer
@@ -149,8 +149,8 @@ for ff_profile in $ff_profiles; do
 done
 
 # Clean up
-apt autoremove -y 
-apt autoclean -y 
+apt -qq autoremove -y 
+apt -qq autoclean -y 
 rm -f ~/.zsh_history
 
 # Done
