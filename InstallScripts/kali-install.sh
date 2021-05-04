@@ -12,11 +12,10 @@ export DEBIAN_FRONTEND=noninteractive
 apt -qq update -y 
 apt -qq update -y --fix-missing
 apt -qq upgrade -y 
-apt -qq --fix-broken install
-
+apt 
 
 # Install and run docker
-apt install -y docker.io
+apt install -y docker-io
 apt install -y docker-compose
 systemctl enable docker
 systemctl start docker
@@ -28,19 +27,19 @@ else
 fi
 
 # Pulling a few containers
-docker pull -q tleemcjr/metasploitable2
-docker pull -q raesene/bwapp
-docker pull -q bkimminich/juice-shop
-docker pull -q byt3bl33d3r/crackmapexec
+docker pull tleemcjr/metasploitable2
+docker pull raesene/bwapp
+docker pull bkimminich/juice-shop
+docker pull byt3bl33d3r/crackmapexec
 
 # Adding SDR packages
-apt -qq install -y gcc-multilib
-apt -qq install -y gqrx-sdr
-apt -qq install -y pkg-config
+apt install -y gcc-multilib
+apt install -y gqrx-sdr
+apt install -y pkg-config
 ln -sf /usr/lib/x86_64-linux-gnu/libvolk.so.1.3.1 /usr/lib/x86_64-linux-gnu/libvolk.so.1.3
 
 # librtlsdr from source to get proper config for dump1090
-apt -qq install -y cmake libusb-1.0-0-dev
+apt install -y cmake libusb-1.0-0-dev
 git clone git://git.osmocom.org/rtl-sdr.git /opt/rtl-sdr
 cd /opt/rtl-sdr
 mkdir build
@@ -53,6 +52,7 @@ make install
 git clone https://github.com/antirez/dump1090.git /opt/dump1090
 cd /opt/dump1090
 make 
+cd ~
 
 # Install sublime
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
@@ -66,16 +66,16 @@ dpkg -i /tmp/atom-amd64.deb
 rm -f /tmp/atom-amd64.deb
 
 # Install terminator
-apt -qq install -y terminator
+apt install -y terminator
 
 # Install ffuf
-apt -qq install -y ffuf
+apt install -y ffuf
 
 # Install jq 
-apt -qq install -y jq
+apt install -y jq
 
 # Install autossh
-apt -qq install -y autossh
+apt install -y autossh
 
 # Install responder
 git clone https://github.com/lgandx/Responder.git /opt/responder
@@ -87,17 +87,17 @@ git clone https://github.com/cddmp/enum4linux-ng.git /opt/enum4linux-ng
 wget -q -O- https://github.com/hugsy/gef/raw/master/scripts/gef.sh | sh
 
 # Installing pip (python3 only)
-apt -qq install -y python3-pip
+sudo apt install -y python3-pip
 
 # Installing python pwntools
 pip install -y pwntools
 
 # Install openvmtools
-apt -qq install -y open-vm-tools-desktop
+apt install -y open-vm-tools-desktop
 
 # Install Bettercap
-apt -qq install -y libnetfilter-queue-dev libpcap-dev libusb-1.0-0-dev
-apt -qq install -y bettercap 
+apt install -y libnetfilter-queue-dev libpcap-dev libusb-1.0-0-dev
+apt install -y bettercap 
 
 # Install impacket
 git clone https://github.com/SecureAuthCorp/impacket.git /opt/impacket
@@ -105,13 +105,35 @@ pip3 install -r /opt/impacket/requirements.txt
 python3 ./setup.py install
 
 #Install Ghidra
-apt -qq --fix-broken install
-apt -qq update --fix-missing -y -qq
-apt -qq install -y openjdk-11-jdk
-cd /opt
-git clone https://github.com/bkerler/ghidra_installer
-cd ghidra_installer
+apt --fix-broken install
+apt update --fix-missing -y -qq
+apt install -y openjdk-11-jdk
+git clone https://github.com/bkerler/ghidra_installer /opt/ghidra_installer
+cd /opt/ghidra_installer
 ./install-ghidra.sh
+cd ~
+
+# Install car hacking tools
+# Install Dependencies
+apt install -y libsdl2-dev libsdl2-image-dev
+
+# Install canutils
+apt install -y can-utils
+
+# Install ICSim
+git clone https://github.com/zombieCraig/ICSim.git /opt/ICSim
+zsh /opt/ICSim/setup_vcan.sh
+make
+
+# Install scantool of obd2
+apt install -y scantool
+
+
+# Canopy install
+git clone https://github.com/Tbruno25/canopy /opt/canopy
+cd /opt/canopy
+pip3 install -r requirements.txt
+cd ~
 
 # Check if we're sudo or root
 if [[ -z $SUDO_USER ]]; then
@@ -149,8 +171,8 @@ for ff_profile in $ff_profiles; do
 done
 
 # Clean up
-apt -qq autoremove -y 
-apt -qq autoclean -y 
+apt autoremove -y 
+apt autoclean -y 
 rm -f ~/.zsh_history
 
 # Done
