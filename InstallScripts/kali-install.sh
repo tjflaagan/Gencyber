@@ -37,6 +37,7 @@ apt install -y gcc-multilib
 apt install -y gqrx-sdr
 apt install -y pkg-config
 ln -sf /usr/lib/x86_64-linux-gnu/libvolk.so.1.3.1 /usr/lib/x86_64-linux-gnu/libvolk.so.1.3
+apt install -y audacity
 
 # librtlsdr from source to get proper config for dump1090
 apt install -y cmake libusb-1.0-0-dev
