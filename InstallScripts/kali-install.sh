@@ -39,6 +39,9 @@ apt install -y pkg-config
 ln -sf /usr/lib/x86_64-linux-gnu/libvolk.so.1.3.1 /usr/lib/x86_64-linux-gnu/libvolk.so.1.3
 apt install -y audacity
 
+# Fix SDR driver conflict
+echo 'blacklist dvb_usb_rtl28xxu' | sudo tee --append /etc/modprobe.d/blacklist-dvb_usb_rtl28xxu.conf
+
 # librtlsdr from source to get proper config for dump1090
 apt install -y cmake libusb-1.0-0-dev
 git clone git://git.osmocom.org/rtl-sdr.git /opt/rtl-sdr
