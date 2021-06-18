@@ -28,5 +28,5 @@ jobs:
       - name: Gets ZSH to mimic Kali
         run: sudo apt install -fy zsh
       # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: sudo curl -fsSL http://kali.eh200.xyz | sudo zsh
+      - name: Installs Tools
+        run: sudo curl -fsSL http://kali.eh200.xyz | sudo zsh > /dev/null
