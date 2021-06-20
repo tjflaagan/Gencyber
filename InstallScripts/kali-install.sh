@@ -12,10 +12,9 @@ export DEBIAN_FRONTEND=noninteractive
 apt -qq update -y 
 apt -qq update -y --fix-missing
 apt -qq upgrade -y 
-apt 
 
 # Install and run docker
-apt install -y docker-io
+apt install -y docker.io
 apt install -y docker-compose
 systemctl enable docker
 systemctl start docker
