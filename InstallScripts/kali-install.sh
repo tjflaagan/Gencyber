@@ -33,6 +33,7 @@ docker pull byt3bl33d3r/crackmapexec >/dev/null 2>&1
 # Adding aliases
 alias -g msf-run='docker run -it tleemcjr/metasploitable2:latest sh -c "/bin/services.sh && bash"'
 alias -g juice-run='docker run --rm -p 3000:3000 bkimminich/juice-shop'
+alias -g bwapp-run='docker run -d -p 80:80 raesene/bwapp'
 
 # Adding SDR packages
 apt install -y gcc-multilib
