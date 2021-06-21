@@ -26,10 +26,10 @@ else
 fi
 
 # Pulling a few containers
-docker pull tleemcjr/metasploitable2
-docker pull raesene/bwapp
-docker pull bkimminich/juice-shop
-docker pull byt3bl33d3r/crackmapexec
+docker pull tleemcjr/metasploitable2 >/dev/null 2>&1
+docker pull raesene/bwapp >/dev/null 2>&1
+docker pull bkimminich/juice-shop >/dev/null 2>&1
+docker pull byt3bl33d3r/crackmapexec >/dev/null 2>&1
 
 # Adding SDR packages
 apt install -y gcc-multilib
@@ -177,5 +177,4 @@ apt autoclean -y
 rm -f ~/.zsh_history
 
 # Done
-sleep 3
-shutdown -r now
+# shutdown -r now
