@@ -36,28 +36,7 @@ alias -g juice-run='docker run --rm -p 3000:3000 bkimminich/juice-shop'
 alias -g bwapp-run='docker run -d -p 8081:80 raesene/bwapp'
 
 # Adding SDR packages
-apt install -y gcc-multilib
-apt install -y gqrx-sdr
-apt install -y pkg-config
-ln -sf /usr/lib/x86_64-linux-gnu/libvolk.so.1.3.1 /usr/lib/x86_64-linux-gnu/libvolk.so.1.3
-apt install -y audacity
-echo 'blacklist dvb_usb_rtl28xxu' | sudo tee --append /etc/modprobe.d/blacklist-dvb_usb_rtl28xxu.conf
-
-# librtlsdr from source to get proper config for dump1090
-apt install -y cmake libusb-1.0-0-dev
-git clone git://git.osmocom.org/rtl-sdr.git /opt/rtl-sdr
-cd /opt/rtl-sdr
-mkdir build
-cd build
-cmake ..
-make
-make install
-
-# Get dump1090 for decoding ADS-B and install
-git clone https://github.com/antirez/dump1090.git /opt/dump1090
-cd /opt/dump1090
-make 
-cd ~
+sudo zsh -c "$(wget -O - https://raw.githubusercontent.com/DSUmjham/GenCyber/master/SDR/sdr_setup.sh)"
 
 # Install sublime
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
