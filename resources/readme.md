@@ -6,7 +6,7 @@
 
 [Wargames](https://overthewire.org/wargames/)
 
-[SEED Labs](https://seedsecuritylabs.org/Labs_20.04/)w
+[SEED Labs](https://seedsecuritylabs.org/Labs_20.04/)
 
 ## Penetration Testing
 
